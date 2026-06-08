@@ -1,0 +1,92 @@
+[
+  {
+    "id": "mock-1",
+    "name": "Nonna's Trattoria",
+    "cuisine": "Italian",
+    "priceLevel": 2,
+    "rating": 4.6,
+    "address": "204 Mulberry St",
+    "photoUrl": "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800&q=60"
+  },
+  {
+    "id": "mock-2",
+    "name": "El Farolito",
+    "cuisine": "Mexican",
+    "priceLevel": 1,
+    "rating": 4.4,
+    "address": "55 Valencia St",
+    "photoUrl": "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=800&q=60"
+  },
+  {
+    "id": "mock-3",
+    "name": "Sakura Ramen House",
+    "cuisine": "Japanese",
+    "priceLevel": 2,
+    "rating": 4.7,
+    "address": "1180 Geary Blvd",
+    "photoUrl": "https://images.unsplash.com/photo-1569718212165-3a8278d5f624?w=800&q=60"
+  },
+  {
+    "id": "mock-4",
+    "name": "The Greasy Spoon",
+    "cuisine": "American Diner",
+    "priceLevel": 1,
+    "rating": 4.1,
+    "address": "788 Market St",
+    "photoUrl": "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=800&q=60"
+  },
+  {
+    "id": "mock-5",
+    "name": "Saffron & Smoke",
+    "cuisine": "Indian",
+    "priceLevel": 2,
+    "rating": 4.5,
+    "address": "330 Castro St",
+    "photoUrl": "https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=800&q=60"
+  },
+  {
+    "id": "mock-6",
+    "name": "Bistro Lumière",
+    "cuisine": "French",
+    "priceLevel": 3,
+    "rating": 4.8,
+    "address": "12 Hayes St",
+    "photoUrl": "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800&q=60"
+  },
+  {
+    "id": "mock-7",
+    "name": "Seoul Kitchen",
+    "cuisine": "Korean BBQ",
+    "priceLevel": 2,
+    "rating": 4.3,
+    "address": "601 Irving St",
+    "photoUrl": "https://images.unsplash.com/photo-1590301157890-4810ed352733?w=800&q=60"
+  },
+  {
+    "id": "mock-8",
+    "name": "Green Bowl",
+    "cuisine": "Vegan",
+    "priceLevel": 2,
+    "rating": 4.2,
+    "address": "421 Divisadero St",
+    "photoUrl": "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=800&q=60"
+  },
+  {
+    "id": "mock-9",
+    "name": "Pier 9 Oyster Bar",
+    "cuisine": "Seafood",
+    "priceLevel": 3,
+    "rating": 4.6,
+    "address": "9 The Embarcadero",
+    "photoUrl": "https://images.unsplash.com/photo-1559339352-11d035aa65de?w=800&q=60"
+  },
+  {
+    "id": "mock-10",
+    "name": "Taqueria El Sol",
+    "cuisine": "Mexican",
+    "priceLevel": 1,
+    "rating": 4.5,
+    "address": "2400 Mission St",
+    "photoUrl": "https://images.unsplash.com/photo-1551504734-5ee1c4a1479b?w=800&q=60"
+  }
+]

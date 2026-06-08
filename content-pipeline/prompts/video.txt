@@ -1,0 +1,29 @@
+You are a prompt engineer for the {video_target} text-to-video model. Convert the script below into a SHOT-BY-SHOT generation prompt optimized for {video_target}.
+
+Requirements:
+- Aspect ratio {aspect_ratio}, total ~{duration}s.
+- One block per shot, matching the script's time beats.
+- For each shot specify: SHOT (duration), CAMERA (framing/movement), SUBJECTS (who, wardrobe, expression), ACTION, DIALOGUE (exact spoken line — keep lip-sync friendly), SETTING/LIGHTING, MOOD.
+- Keep characters visually CONSISTENT across shots (repeat their descriptions).
+- Dialogue must be clearly marked so the model lip-syncs it.
+
+Output EXACTLY this format and nothing else:
+
+VIDEO_TARGET: {video_target}
+ASPECT: {aspect_ratio}
+STYLE: <one line global style: film look, color, energy>
+CHARACTERS: <comma-separated persistent descriptions, e.g. "MIA: 20s, curly hair, yellow hoodie">
+---
+SHOT 1 [0-2s]
+CAMERA: ...
+ACTION: ...
+DIALOGUE: "..."
+SETTING/LIGHT: ...
+---
+SHOT 2 [...]
+(continue for every beat)
+---
+NOTE_ON_TIER: <one line — does {video_target} need a PAID / no-watermark tier for clean export at this length? state it plainly>
+
+SCRIPT TO ADAPT:
+{script}

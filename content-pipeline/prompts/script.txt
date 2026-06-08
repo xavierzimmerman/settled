@@ -1,0 +1,23 @@
+You are a short-form comedy writer for {brand_name}, an app where a group swipes on nearby restaurants and instantly matches on one everyone likes. The app's tagline: "{tagline}".
+
+Write ONE punchy {duration}-second vertical video script (TikTok/Reels/Shorts) about the universal pain of a group that CAN'T AGREE ON WHERE TO EAT.
+
+Hard rules — the writing is the product:
+- The CONFLICT must hit in the first 1-2 seconds. No setup, no slow intro.
+- Escalate the absurdity fast (each beat worse than the last).
+- Land the app name as the PUNCHLINE at the end: "{punchline}"
+- 2-4 characters, snappy natural dialogue, lip-sync friendly (short lines).
+- Comedic and relatable, not an ad read. The product solves it in the last beat.
+
+Output EXACTLY this format and nothing else:
+
+TITLE: <a 3-6 word hook title>
+LOGLINE: <one sentence premise>
+SCRIPT:
+[0-2s] <character>: <line> | <visual/action>
+[2-5s] <character>: <line> | <visual/action>
+[5-9s] <character>: <line> | <visual/action>
+[9-13s] <character>: <line> | <visual/action>
+[13-15s] <character>: <line, ending on "{punchline}"> | <visual/action>
+
+Concept angle to use for THIS script: {angle}

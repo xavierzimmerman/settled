@@ -1,0 +1,22 @@
+{
+  "model": "deepseek-r1:14b",
+  "temperature": 0.9,
+  "concepts_per_run": 3,
+  "brand": {
+    "name": "Settled",
+    "tagline": "Swipe together. Agree on where to eat.",
+    "cta": "Get Settled",
+    "punchline": "...just Settled.",
+    "app_url": "https://getsettled.app"
+  },
+  "video": {
+    "target": "veo",
+    "_target_options": ["kling", "veo", "sora"],
+    "aspect_ratio": "9:16",
+    "duration_seconds": 15
+  },
+  "compliance": {
+    "ai_disclosure_label": "Made with AI",
+    "disclosure_note": "Required on every caption. Some platforms (TikTok, Meta) also have an in-app 'AI-generated' toggle — set it too."
+  }
+}

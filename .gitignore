@@ -1,0 +1,15 @@
+# Workstream A — local relay runtime data (ephemeral validation events)
+app/data/
+
+# Workstream B — generated marketing assets (regenerable artifacts)
+content-pipeline/output/
+
+# Claude Code runtime cruft (keep launch.json)
+.claude/scheduled_tasks.lock
+.claude/settings.local.json
+
+# OS / editor cruft
+.DS_Store
+*.log
+__pycache__/
+*.pyc

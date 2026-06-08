@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Settled — Validation events</title>
+    <link rel="stylesheet" href="./styles.css" />
+    <style>
+      .admin { max-width: 900px; margin: 0 auto; padding: 20px; }
+      .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px,1fr)); gap: 12px; margin: 16px 0; }
+      .stat { background: #fff; border-radius: 12px; padding: 14px; box-shadow: 0 4px 14px rgba(0,0,0,.06); }
+      .stat .n { font-size: 28px; font-weight: 800; color: var(--brand); }
+      .stat .l { color: var(--muted); font-size: 13px; }
+      table { width: 100%; border-collapse: collapse; font-size: 13px; background: #fff; border-radius: 12px; overflow: hidden; }
+      th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid #f0f0f0; }
+      th { background: #faf2f0; }
+      td.payload { font-family: monospace; color: #555; max-width: 380px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+      .controls { display: flex; gap: 8px; align-items: center; }
+    </style>
+  </head>
+  <body>
+    <div class="admin">
+      <p><a href="./index.html">← Back to app</a></p>
+      <h1>Validation events</h1>
+      <div class="controls">
+        <button id="refresh" class="btn btn-secondary">Refresh</button>
+        <span id="src-note" class="fineprint"></span>
+      </div>
+      <div class="cards" id="stats"></div>
+      <table>
+        <thead><tr><th>time</th><th>type</th><th>room</th><th>payload</th></tr></thead>
+        <tbody id="rows"></tbody>
+      </table>
+    </div>
+
+    <script type="module">
+      import { config } from "./js/config.js";
+
+      async function load() {
+        let events = [];
+        if (config.realtime === "supabase") {
+          document.getElementById("src-note").textContent =
+            "Supabase mode: query the `events` table in the Supabase dashboard.";
+        } else {
+          const res = await fetch("/api/events");
+          events = await res.json();
+          document.getElementById("src-note").textContent =
+            "Local relay: data/events.jsonl";
+        }
+        render(events);
+      }
+
+      function render(events) {
+        const by = (t) => events.filter((e) => e.type === t).length;
+        const matches = events.filter((e) => e.type === "match");
+        const avgTtm = matches.length
+          ? Math.round(matches.reduce((a, e) => a + (e.timeToMatchMs || 0), 0) / matches.length / 1000)
+          : "—";
+        const stats = [
+          ["Rooms", by("room_created")],
+          ["Participants", by("participant_joined")],
+          ["Swipes", by("swipe")],
+          ["Matches", by("match")],
+          ["Avg time-to-match", avgTtm === "—" ? "—" : avgTtm + "s"],
+        ];
+        document.getElementById("stats").innerHTML = stats
+          .map(([l, n]) => `<div class="stat"><div class="n">${n}</div><div class="l">${l}</div></div>`)
+          .join("");
+        document.getElementById("rows").innerHTML = events
+          .slice()
+          .reverse()
+          .map((e) => {
+            const t = new Date(e.ts || Date.now()).toLocaleTimeString();
+            const payload = JSON.stringify(
+              Object.fromEntries(Object.entries(e).filter(([k]) => !["type", "ts", "code"].includes(k)))
+            );
+            return `<tr><td>${t}</td><td>${e.type}</td><td>${e.code || ""}</td><td class="payload">${payload}</td></tr>`;
+          })
+          .join("");
+      }
+
+      document.getElementById("refresh").addEventListener("click", load);
+      load();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="theme-color" content="#ff5a5f" />
+    <title>Settled — agree on where to eat</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <span class="brand">Settled</span>
+      <span class="who">You: <b id="my-name">…</b></span>
+    </header>
+
+    <main class="app">
+      <!-- HOME -->
+      <section id="screen-home" class="screen">
+        <div class="hero">
+          <h1>Can't agree on where to eat?</h1>
+          <p class="tagline">Swipe together. Match instantly. Just <b>Settled</b>.</p>
+        </div>
+        <button id="btn-host" class="btn btn-primary btn-big">Start a room</button>
+        <div class="divider">or join</div>
+        <div class="join-row">
+          <input id="join-code" class="code-input" maxlength="4" placeholder="CODE"
+                 autocapitalize="characters" autocomplete="off" />
+          <button id="btn-join" class="btn btn-secondary">Join</button>
+        </div>
+        <p id="join-error" class="error"></p>
+        <p class="fineprint">No account needed. <a href="./privacy.html">Privacy</a></p>
+      </section>
+
+      <!-- SETUP (host) -->
+      <section id="screen-setup" class="screen">
+        <h2>Where are we eating?</h2>
+        <button id="btn-geo" class="btn btn-secondary">📍 Use my location</button>
+        <div class="manual">
+          <input id="manual-location" class="text-input" placeholder="Or type a place (e.g. Mission, SF)" />
+          <button id="btn-fallback" class="btn btn-ghost">Use this</button>
+        </div>
+        <label class="radius-label">
+          Search radius: <b id="radius-label">2.0 km</b>
+          <input id="radius" type="range" min="500" max="10000" step="500" value="2000" />
+        </label>
+        <p id="setup-status" class="status"></p>
+        <button id="btn-create" class="btn btn-primary btn-big">Create room</button>
+      </section>
+
+      <!-- LOBBY -->
+      <section id="screen-lobby" class="screen">
+        <p class="lobby-label">Share this code</p>
+        <div id="room-code-display" class="big-code">····</div>
+        <div class="share-row">
+          <input id="share-url" class="text-input" readonly />
+          <button id="btn-copy-share" class="btn btn-ghost">Copy invite link</button>
+        </div>
+        <p class="lobby-sub">Room <b id="lobby-code"></b> · <span id="participant-count">0</span> here</p>
+        <ul id="participant-list" class="participants"></ul>
+        <button id="btn-start-swiping" class="btn btn-primary btn-big">Start swiping</button>
+        <p class="fineprint">Everyone swipes the same list. First place you all like wins.</p>
+      </section>
+
+      <!-- SWIPE -->
+      <section id="screen-swipe" class="screen">
+        <p class="deck-progress"><span id="deck-progress">0 / 0</span></p>
+        <div id="card-stack" class="card-stack"></div>
+        <div class="swipe-buttons">
+          <button id="btn-no" class="circle-btn no">✕</button>
+          <button id="btn-yes" class="circle-btn yes">♥</button>
+        </div>
+      </section>
+
+      <!-- DONE (finished deck, waiting) -->
+      <section id="screen-done" class="screen">
+        <div class="centered">
+          <div class="big-emoji">🍽️</div>
+          <h2>That's everyone you'll see.</h2>
+          <p>Waiting for the group to agree… a match will pop up here the instant it happens.</p>
+        </div>
+      </section>
+
+      <!-- MATCH -->
+      <section id="screen-match" class="screen">
+        <div class="match-card">
+          <div class="match-banner">It's a match! 🎉</div>
+          <img id="match-photo" class="match-photo" alt="" />
+          <h2 id="match-name">Restaurant</h2>
+          <p id="match-meta" class="card-meta"></p>
+          <button id="btn-book" class="btn btn-primary btn-big">Book a table</button>
+          <button id="btn-newroom" class="btn btn-ghost">New room</button>
+          <p class="fineprint">Booking is a stub (future OpenTable affiliate).</p>
+        </div>
+      </section>
+    </main>
+
+    <script type="module" src="./js/app.js"></script>
+  </body>
+</html>
