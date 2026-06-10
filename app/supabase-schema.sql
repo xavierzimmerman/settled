@@ -44,6 +44,15 @@ create table if not exists events (
 alter publication supabase_realtime add table swipes;
 alter publication supabase_realtime add table participants;
 
+-- Table-level GRANTs. RLS policies (below) only filter rows for roles that
+-- ALREADY have table privileges — without these grants the anon role hits
+-- "permission denied for table" (42501). The new sb_publishable_... API keys
+-- map to the anon role, so grant it (and authenticated) access here.
+-- Sequence grants are required for the bigserial inserts on swipes/events.
+grant usage on schema public to anon, authenticated;
+grant all on all tables in schema public to anon, authenticated;
+grant all on all sequences in schema public to anon, authenticated;
+
 -- ⚠️ Row Level Security: this anonymous validator uses permissive policies so the
 -- public anon key can read/write room data. Acceptable for a throwaway prototype.
 -- TIGHTEN before any real launch (e.g. scope writes to the active room).
