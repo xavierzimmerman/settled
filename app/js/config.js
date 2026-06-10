@@ -3,19 +3,19 @@ export const config = {
   // --- DATA PROVIDER (restaurant source) -----------------------------------
   // "mock"   -> bundled JSON, ZERO API spend. Default for all dev/testing.
   // "google" -> Google Places (BILLABLE + caching ToS constraints). Requires key.
-  dataProvider: "mock",
+  dataProvider: "google",
   google: {
-    apiKey: null, // set ONLY after accepting cost + ToS (see googlePlaces.js)
+    apiKey: "AIzaSyApB9L2DRQvDjArGMIHN4o-Pd5TIOt__nQ", // referrer-restricted; safe to expose
     maxResults: 12,
   },
 
   // --- REALTIME / PERSISTENCE BACKEND --------------------------------------
   // "local"    -> Python relay (server.py). Zero cost, multi-browser on LAN.
   // "supabase" -> Supabase free tier. Use for public deploy.
-  realtime: "local",
+  realtime: "supabase",
   supabase: {
-    url: null, // e.g. "https://xxxx.supabase.co"
-    anonKey: null,
+    url: "https://gptziklzkwfgsdxoxhxv.supabase.co",
+    anonKey: "sb_publishable_RiKOtAEVRI1zByPUwqo-oQ_D7qpdxaU",
   },
 
   // --- MATCH RULE (shared with server.py detect_match) ---------------------
