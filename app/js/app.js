@@ -62,9 +62,17 @@ window.addEventListener("DOMContentLoaded", async () => {
     (n) => (screens[n] = $("#screen-" + n))
   );
   $("#my-name").textContent = me.name;
-  await ensureSupabaseClient().catch((e) => console.warn(e));
+  await ensureSupabaseClient().catch((e) => console.warn("Supabase CDN load failed:", e));
 
-  backend = getRealtime(config.realtime, config.realtime === "supabase" ? config.supabase : {});
+  try {
+    backend = getRealtime(config.realtime, config.realtime === "supabase" ? config.supabase : {});
+  } catch (e) {
+    document.body.innerHTML = `<div style="padding:2rem;color:red;font-family:sans-serif">
+      <strong>Setup error:</strong> ${e.message}<br><br>
+      Check your Supabase config in config.js and ensure the CDN loaded.
+    </div>`;
+    return;
+  }
 
   // Deep-link join: ?room=CODE
   const params = new URLSearchParams(location?.search || window.location.search);
@@ -102,7 +110,7 @@ function wireHome() {
     try {
       await joinRoom(code);
     } catch (e) {
-      $("#join-error").textContent = "Couldn't find that room. Check the code.";
+      $("#join-error").textContent = e.message || "Couldn't find that room. Check the code.";
       console.error(e);
     }
   });
@@ -165,7 +173,10 @@ function wireSetup() {
         matchRule: config.matchRule,
         participant: me,
       });
-      restaurants = state.restaurants || restaurants;
+      // Only replace local restaurants if Supabase returned a non-empty list.
+      if (state.restaurants && state.restaurants.length > 0) {
+        restaurants = state.restaurants;
+      }
       instrument = createInstrumentation(backend, roomCode);
       instrument.roomCreated({
         host: me.id,
