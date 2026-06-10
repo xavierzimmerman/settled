@@ -30,32 +30,38 @@ export class SupabaseBackend {
   }
 
   async createRoom({ code, restaurants, matchRule, participant }) {
-    await this.client.from("rooms").insert({
+    const { error } = await this.client.from("rooms").insert({
       code,
       restaurants, // jsonb — single cached search, lifetime of the room
       match_rule: matchRule,
       created_at: new Date().toISOString(),
     });
+    if (error) throw new Error(`Supabase createRoom failed: ${error.message} (${error.code})`);
     return this.joinRoom({ code, participant });
   }
 
   async joinRoom({ code, participant }) {
-    await this.client.from("participants").upsert({
+    const { error } = await this.client.from("participants").upsert({
       room_code: code,
       id: participant.id,
       name: participant.name,
       joined_at: new Date().toISOString(),
     });
+    if (error) throw new Error(`Supabase joinRoom failed: ${error.message} (${error.code})`);
     return this.getState({ code });
   }
 
   async getState({ code }) {
-    const [{ data: room }, { data: participants }, { data: swipes }] =
-      await Promise.all([
+    const [
+      { data: room, error: roomErr },
+      { data: participants },
+      { data: swipes },
+    ] = await Promise.all([
         this.client.from("rooms").select("*").eq("code", code).single(),
         this.client.from("participants").select("*").eq("room_code", code),
         this.client.from("swipes").select("*").eq("room_code", code),
       ]);
+    if (roomErr) throw new Error(`Room not found (${roomErr.code}: ${roomErr.message})`);
     this._matchRule = room?.match_rule;
     this._state = {
       restaurants: room?.restaurants || [],
@@ -71,13 +77,14 @@ export class SupabaseBackend {
   }
 
   async swipe({ code, participantId, restaurantId, dir }) {
-    await this.client.from("swipes").insert({
+    const { error } = await this.client.from("swipes").insert({
       room_code: code,
       participant_id: participantId,
       restaurant_id: restaurantId,
       dir,
       created_at: new Date().toISOString(),
     });
+    if (error) throw new Error(`Supabase swipe failed: ${error.message}`);
     return { ok: true };
   }
 
