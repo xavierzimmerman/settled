@@ -251,11 +251,22 @@ function renderParticipants(participants) {
 }
 
 function wireLobby() {
+  $("#btn-share-invite").addEventListener("click", () => {
+    const url = $("#share-url").value;
+    const text = `Join my Settled room and help pick where we eat! Tap the link, enter code ${roomCode}: ${url}`;
+    if (navigator.share) {
+      navigator.share({ title: "Join my Settled room", text, url }).catch(() => {});
+    } else {
+      // Fallback: open SMS app pre-filled with the message
+      window.location.href = `sms:?body=${encodeURIComponent(text)}`;
+    }
+  });
+
   $("#btn-copy-share").addEventListener("click", () => {
     $("#share-url").select();
     navigator.clipboard?.writeText($("#share-url").value).catch(() => {});
     $("#btn-copy-share").textContent = "Copied!";
-    setTimeout(() => ($("#btn-copy-share").textContent = "Copy invite link"), 1500);
+    setTimeout(() => ($("#btn-copy-share").textContent = "Copy link"), 1500);
   });
   $("#btn-start-swiping").addEventListener("click", () => {
     deckIndex = 0;
