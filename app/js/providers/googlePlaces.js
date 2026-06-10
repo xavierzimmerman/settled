@@ -1,6 +1,6 @@
-// Google Places (New) "Nearby Search" provider — STUB / GUARDED.
+// Google Places (New) "Nearby Search" provider — ENABLED (key in config.js).
 //
-// ⚠️ COST + ToS WARNING — read before enabling:
+// ⚠️ COST + ToS WARNING — accepted when this provider was enabled:
 //
 // 1. COST: Places API Nearby Search is a PAID, billable endpoint. Google gives a
 //    recurring monthly credit, but calls beyond it are billed per request and the
@@ -22,9 +22,8 @@
 // 3. PHOTOS: Place Photos must be fetched through the Places Photo endpoint and
 //    displayed with required attribution. One lazy-loaded photo per card only.
 //
-// This stub intentionally THROWS unless an API key is provided, so you can never
-// accidentally incur spend. Implement `search` against the real endpoint only when
-// you have explicitly accepted the cost + ToS above.
+// `search` still THROWS if no API key is configured, so removing the key from
+// config.js is enough to stop all spend.
 
 export class GooglePlacesProvider {
   constructor(options = {}) {
@@ -41,7 +40,7 @@ export class GooglePlacesProvider {
       );
     }
 
-    // --- Reference implementation (left disabled until cost is accepted) ---
+    // --- Live implementation ---
     // Cheapest-viable field mask: id + displayName + a single photo ref + rating +
     // priceLevel + location. We deliberately omit reviews, editorial summaries,
     // opening hours, etc. (more expensive SKUs / more data than needed).
